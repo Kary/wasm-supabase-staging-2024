@@ -1,19 +1,15 @@
 use wasm_bindgen::prelude::*;
+use std::fs;
+
+#[wasm_bindgen]
+pub fn poc(file_path: String) -> String{
+    let contents = fs::read_to_string(file_path).expect("The file should be read");
+    return contents;
+}
 
 #[wasm_bindgen]
 pub fn add(a: i32, b: i32) -> i32 {
   a + b
-}
-
-#[wasm_bindgen]
-extern "C" {
-    type Buffer;
-}
-
-#[wasm_bindgen(module = "fs")]
-extern "C" {
-    #[wasm_bindgen(js_name = readFileSync, catch)]
-    fn read_file(path: &str) -> Result<Buffer, JsValue>;
 }
 
 #[wasm_bindgen]
